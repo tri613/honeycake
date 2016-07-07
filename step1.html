@@ -1,18 +1,18 @@
-<div class="row"  ng-controller="ItemController as itemCtrl" >
+<div class="row">
 	<div class="col-md-12">
 		<h4>Step 1 / 選擇商品</h4>
-		<form name="itemForm" novalidate ng-submit="checkValid()">
-			<div class="form-group" 
-				 ng-repeat="(index,item) in items" 
-				 ng-class="{
-				 	'has-danger':itemForm[items[index].key].$invalid,
-				 	'has-success':itemForm[items[index].key].$valid && itemForm[items[index].key].$touched,
-				 }"
-			>
-				<label class="form-control-label">{{item.name}}</label>
-				<input type="number" dynamic-name="item.key" class="form-control" ng-model="item.num" required>
-			</div>
-
+		<form name="itemForm" novalidate ng-submit="itemForm.$valid && checkValid()">
+			<ng-form name="urlForm"  ng-repeat="(index,item) in items" >
+				<div class="form-group" 
+					ng-class="{
+					 	'has-danger':urlForm.key.$invalid,
+					 	'has-success':urlForm.key.$valid && urlForm.key.$touched,
+					}"
+				>
+					<label class="form-control-label">{{item.name}}</label>
+					<input type="number" name="key" class="form-control" ng-model="item.num" required>
+				</div>
+			</ng-form>
 			<button type="submit" class="btn btn-primary">Next</button>
 		</form>
 		<br>

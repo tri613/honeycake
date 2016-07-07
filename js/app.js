@@ -6,9 +6,9 @@
 
 		.config(function($routeProvider){
 			$routeProvider
-				// .when('/',{
-				// 	templateUrl: 'main.html',
-				// })
+				.when('/',{
+					templateUrl: 'main.html',
+				})
 				.when('/step1',{
 					templateUrl: 'step1.html',
 					controller: 'ItemController'
@@ -28,10 +28,6 @@
 				.otherwise('/step1');
 		})
 		
-		.controller('MainController',function(){
-			
-		})
-
 		.controller('ItemController',['$scope','$location','CartFactory',function($scope,$location,CartFactory){
 			$scope.items = CartFactory.items;
 
@@ -51,18 +47,16 @@
 			$scope.items = CartFactory.items;
 			$scope.user = {};
 
-			//if no item chosen, redirect to step1
+			//if no item chosen, redirect to index
 			var total = CartFactory.getItemTotal();
 			if(total <= 0){
-				$location.url('/step1');
+				$location.url('/');
 			}
 
 			$scope.submitForm = function(){
-				console.log($scope.user);
 				CartFactory.setUser($scope.user);
 				// $location.url('/confirm');
 			}
-
 			// $scope.CalDilvery = function(){
 			// 	return ($scope.user.by == 'shipping') ? 150 : 0 ;
 			// }
@@ -147,6 +141,12 @@
 		    };
 		})
 
+		.directive('navBar',function(){
+			return {
+				restrict:"E",
+				templateUrl: 'nav.html'
+			};
+		})
 
 	;
 

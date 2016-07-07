@@ -1,8 +1,8 @@
-<div ng-controller="DeliveryController as confirmCtrl">
-	<h4>Step 2 / 選擇遞送方式</h4>
+<div>
+	<h4>Step 2 / 選擇取貨方式</h4>
 	<form name="DeliveryForm" class="form" novalidate ng-submit="DeliveryForm.$valid && submitForm()">
 		<fieldset class="form-group" ng-class="{'has-danger':DeliveryForm.bygroup.$invalid&&DeliveryForm.name.$touched}">
-			<label class=" form-control-label">交貨方式</label>
+			<div class="form-control-label">交貨方式</div>
 			<label class="radio-inline"><input type="radio" name="bygroup" ng-model="user.by" value="facetoface" required>面交</label>
 			<label class="radio-inline"><input type="radio" name="bygroup" ng-model="user.by" value="shipping" required>郵寄 (郵資150)</label>
 		</fieldset>
@@ -39,7 +39,7 @@
 			</fieldset>
 		</div>
 
-		<div class="">
+		<div>
 			<a ng-href="#/step1"><button type="button" class="btn btn-primary">Back</button></a>
 			<button type="submit" class="btn btn-primary">Next</button>
 		</div>
