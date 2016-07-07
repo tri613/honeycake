@@ -8,44 +8,9 @@
 </head>
 <body ng-app="HoneyCake">
 
-<!-- <ng-view></ng-view> -->
 <div class="container">
 
-<div class="row"  ng-controller="ItemController as itemCtrl" >
-	<div class="col-md-8">
-		<h4>Step 1 / 選擇商品</h4>
-		<form name="itemForm" novalidate>
-			<div class="form-group" ng-repeat="item in items">
-				<label>{{item.name}}</label>
-				<input type="number" name="{{item.key}}" class="form-control" ng-model="item.num" required>
-			</div>
-
-			<button type="button" class="btn btn-primary">Submit</button>
-		</form>
-	</div>
-</div>
-<hr>
-<div ng-controller="ConfirmController as confirmCtrl">
-	<h4>訂單明細</h4>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>商品</th>
-				<th>價格</th>
-				<th>數量</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="item in items">
-				<td>{{item.name}}</td>
-				<td>{{item.price}}</td>
-				<td>{{item.num}}</td>
-			</tr>
-		</tbody>
-	</table>
-	<span class="pull-right">小計：{{ CalTotal() }}</span>
-	<!-- <input type="text" ng-model="total" name="" value="" placeholder=""> -->
-</div>
+<ng-view></ng-view>
 
 </div>
 

@@ -1,0 +1,23 @@
+<div class="row"  ng-controller="ItemController as itemCtrl" >
+	<div class="col-md-12">
+		<h4>Step 1 / 選擇商品</h4>
+		<form name="itemForm" novalidate ng-submit="checkValid()">
+			<div class="form-group" 
+				 ng-repeat="(index,item) in items" 
+				 ng-class="{
+				 	'has-danger':itemForm[items[index].key].$invalid,
+				 	'has-success':itemForm[items[index].key].$valid && itemForm[items[index].key].$touched,
+				 }"
+			>
+				<label class="form-control-label">{{item.name}}</label>
+				<input type="number" dynamic-name="item.key" class="form-control" ng-model="item.num" required>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Next</button>
+		</form>
+		<br>
+		<div class="alert alert-danger hidden-xs-up" role="alert">
+			請至少選擇一項商品。
+		</div>
+	</div>
+</div>
