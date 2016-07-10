@@ -1,0 +1,63 @@
+<section ng-controller="ConfirmController">
+	<h4>step3 / 確認訂單資訊</h4>
+	<section>
+		<h5>訂單資訊</h5>
+		<table class="table">
+			<tr>
+				<td>購買人</td>
+				<td>{{user.name}}</td>
+			</tr>
+			<tr>
+				<td>購買人電話</td>
+				<td>{{user.phone}}</td>
+			</tr>
+			<tr>
+				<td>購買人信箱</td>
+				<td>{{user.email}}</td>
+			</tr>
+			<tr>
+				<td>取貨方式</td>
+				<td>{{getByName(user.by)}}</td>
+			</tr>
+			<tr ng-show="user.by=='shipping'">
+				<td>收件人</td>
+				<td>{{user.ship.name}}</td>
+			</tr>
+			<tr ng-show="user.by=='shipping'">
+				<td>收件人電話</td>
+				<td>{{user.ship.phone}}</td>
+			</tr>
+			<tr ng-show="user.by=='shipping'">
+				<td>收件地址</td>
+				<td>{{user.ship.address}}</td>
+			</tr>
+		</table>
+	</section>
+	<section>
+		<h5>購物明細</h5>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>商品</th>
+					<th>價格</th>
+					<th>數量</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in items | filter:greaterThanZero	">
+					<td>{{item.name}}</td>
+					<td>{{item.price}}</td>
+					<td>{{item.num}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+
+	<span class="pull-sm-right">運費：{{ CalDilvery() | currency:'TW' }}</span><br>
+	<span class="pull-sm-right">小計：{{ CalTotal() | currency:'TW' }}</span>
+
+	<div>
+		<a ng-href="#/cart"><button class="btn btn-warning">修改</button></a>	
+		<button class="btn btn-danger" type="" ng-click="sendCart()">送出</button>
+	</div>
+</section>

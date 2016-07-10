@@ -1,0 +1,59 @@
+//---variables---//
+$yellowlight:#FCD036;
+$yellowdark:#E3AD40;
+$honey:#FCD036;
+$green:#C6D6B8;
+$brown:#987F69;
+$white:#fff;
+
+//---mixin---//
+@mixin center{
+	position: absolute;
+	top:50%;
+	left:50%;
+	text-align:center;
+	transform:translate(-50%,-50%);
+	-webkit-transform:translate(-50%,-50%);
+	-moz-transform:translate(-50%,-50%);
+}
+
+header{
+	background: url('../img/bee.png');
+	width:100%;
+	height: 38vh;
+	position: relative;
+
+	.slogan{
+		z-index: 10;
+		@include center;
+		width: 80%;
+		padding: 3vw;
+		font-size:4vw;
+		font-weight:bold;
+		color:$white;
+		border: 1vw solid $white;
+		// background:rgba($brown,.5);
+		background:rgba(111, 93, 78, 0.34);
+	}
+}
+
+section{
+	margin: 30px auto;
+    // padding: 10px 0;
+}
+
+.warning{
+    color: $yellowdark;
+    font-weight: bold;
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+	header{
+		height: 30vh;
+		.slogan{
+		    font-size: 8vw;
+		    border-width: 2vw;
+		}
+	}
+}

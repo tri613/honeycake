@@ -1,0 +1,78 @@
+<section>
+
+<form 
+	name="cartForm" novalidate ng-controller="FormController" 
+	ng-submit="cartForm.$valid && checkTotal() && submitForm()">
+
+	<section>
+		<h4>Step 1 / 選擇商品</h4>
+		<ng-form name="itemForm" class="form">
+			<ng-form name="urlForm"  ng-repeat="(index,item) in items" >
+				<div class="form-group" 
+					ng-class="{
+					 	'has-danger':urlForm.key.$invalid,
+					 	'_has-success':urlForm.key.$valid && urlForm.key.$touched,
+					}"
+				>
+					<label class="form-control-label">{{item.name}} / {{item.price | currency:'TW'}}</label>
+					<input type="number" name="key" class="form-control" ng-model="item.num">
+				</div>
+			</ng-form>
+		</ng-form>
+	</section>
+
+	<section>
+		<h4>Step 2 / 選擇取貨方式</h4>
+		<ng-form name="DeliveryForm" class="form">
+			<fieldset class="form-group" ng-class="{'has-danger':DeliveryForm.bygroup.$invalid&&DeliveryForm.name.$touched}">
+				<div class="form-control-label">交貨方式</div>
+				<div class="radio" ng-repeat="channel in channels">
+				<label>
+					<input type="radio" name="bygroup" ng-model="user.by" value="{{channel.value}}" required>{{channel.name}} <span ng-show="channel.shipment !== 0">(需運費)</span>
+				</label>
+				</div>
+				<!-- <label class="radio-inline"><input type="radio" name="bygroup" ng-model="user.by" value="staff" required>由工作人員交付</label>
+				<label class="radio-inline"><input type="radio" name="bygroup" ng-model="user.by" value="event" required>義賣活動當天領取</label>
+				<label class="radio-inline"><input type="radio" name="bygroup" ng-model="user.by" value="shipping" required>郵寄 (蛋糕 {{150|currency:'TW'}} / 餐券 {{25|currency:'TW'}})</label>-->
+			</fieldset>
+
+			<fieldset class="form-group"  ng-class="{'has-danger':DeliveryForm.name.$invalid&&DeliveryForm.name.$touched, 'has-success':DeliveryForm.name.$valid}">
+				<div class="form-control-label"><label>購買人姓名</label></div>
+				<input type="text" name="name" class="form-control" ng-model="user.name" placeholder="" required>
+			</fieldset>
+
+			<fieldset class="form-group"  ng-class="{'has-danger':DeliveryForm.phone.$invalid&&DeliveryForm.phone.$touched, 'has-success':DeliveryForm.phone.$valid}">
+				<div class=" form-control-label"><label>購買人電話</label></div>
+				<input type="tel" name="phone" class="form-control" ng-model="user.phone" placeholder="" required>
+			</fieldset>
+
+			<fieldset class="form-group " ng-class="{'has-danger':DeliveryForm.email.$invalid&&DeliveryForm.email.$touched, 'has-success':DeliveryForm.email.$valid}">
+				<div class="form-control-label"><label>購買人信箱</label></div>
+				<input type="email" name="email" class="form-control" ng-model="user.email" placeholder="" required>
+			</fieldset>
+
+			<div ng-show="user.by == 'shipping'">
+				<fieldset class="form-group	" ng-class="{'has-danger':DeliveryForm.shipname.$invalid&&DeliveryForm.shipname.$touched, 'has-success':DeliveryForm.shipname.$valid}">
+					<div class=" form-control-label"><label>收件人姓名</label></div>
+					<input type="text" name="shipname" class="form-control" ng-model="user.ship.name" ng-required="user.by == 'shipping'">
+				</fieldset>
+
+				<fieldset class="form-group " ng-class="{'has-danger':DeliveryForm.shipphone.$invalid&&DeliveryForm.shipphone.$touched, 'has-success':DeliveryForm.shipphone.$valid}">
+					<div class=" form-control-label"><label>收件人電話</label></div>
+					<input type="text" name="shipphone" class="form-control" ng-model="user.ship.phone" ng-required="user.by == 'shipping'">
+				</fieldset>
+
+				<fieldset class="form-group" ng-class="{'has-danger':DeliveryForm.shipaddress.$invalid&&DeliveryForm.shipaddress.$touched, 'has-success':DeliveryForm.shipaddress.$valid}">
+					<div class="form-control-label"><label>收件地址</label></div>
+					<input type="text" name="shipaddress" class="form-control" ng-model="user.ship.address" ng-required="user.by == 'shipping'">
+				</fieldset>
+			</div>
+		</ng-form>
+	</section>
+
+	<p class="warning" ng-show="cartForm.$submitted && cartForm.$invalid">請填寫完整表單。</p>
+	<p class="warning" ng-show="cartForm.$submitted && cartForm.$valid && !checkTotal()">請選擇至少一樣商品。</p>
+	<button type="submit" ng-click="clicked=clicked+1" class="btn btn-warning">送出</button>
+	</form>
+</section>
+
