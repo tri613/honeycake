@@ -4,7 +4,6 @@
 			var cartFac = {};
 			var itemMenu = [
 				{
-					_id:0,
 					key: 't500',
 					name: '餐券 / 買500送100',
 					category:'ticket',
@@ -12,7 +11,6 @@
 					num:0
 				},
 				{
-					_id:1,
 					key: 't1000',
 					name: '餐券 / 買1000送200',
 					category:'ticket',
@@ -20,7 +18,6 @@
 					num:0
 				},
 				{
-					_id:2,
 					key: 'honeycake',
 					name: '蜂蜜蛋糕',
 					category:'cake',
@@ -50,8 +47,11 @@
 				}
 			];
 
-			cartFac.getItem = function(_id){
-				return this.items[_id];
+			cartFac.getItem = function(_key){
+				var i = this.items.filter(item=>{
+					return item.key == _key;
+				});
+				return (i.length > 0) ? i[0] : false;
 			};
 			cartFac.setUser = function(info){
 				this.user = info;

@@ -4,25 +4,6 @@
 
 	angular.module('HoneyCake',['ngRoute','HoneyServices','HoneyRouter'])
 
-		.config(function($routeProvider){
-			$routeProvider
-				.when('/',{
-					templateUrl: 'welcome.html',
-				})
-				.when('/cart',{
-					templateUrl: 'cart.html',
-				})
-				.when('/confirm',{
-					templateUrl: 'confirm.html',
-					controller: 'ConfirmController'
-				})
-				.when('/finish',{
-					templateUrl: 'finish.html',
-					controller: 'FinishController'
-				})
-				.otherwise('/');
-		})
-
 		.controller('FormController', ['$scope','$location','CartFactory', function($scope,$location,CartFactory){
 			$scope.items = CartFactory.items;
 			$scope.user = CartFactory.user;
@@ -47,13 +28,13 @@
 			$scope.user = CartFactory.user;
 			
 			$scope.CalDilvery = function(){
-				var channel = CartFactory.channels.filter(item=>{
+				var channel = CartFactory.channels.find(item=>{
 					return item.value == $scope.user.by;
 				});
-				if(channel.length<=0 || channel[0].shipment == 0){
+				if(channel == undefined || channel.shipment == 0){
 					return 0;
 				}
-				return (CartFactory.getItem(2).num > 0) ? channel[0].shipment.cake : channel[0].shipment.ticket;
+				return (CartFactory.getItem('honeycake').num > 0) ? channel.shipment.cake : channel.shipment.ticket;
 			}
 
 			$scope.CalTotal = function(){
@@ -64,11 +45,11 @@
 			};
 
 			$scope.getByName = function(_by){
-				var channel = CartFactory.channels.filter(item =>{
+				var channel = CartFactory.channels.find(item =>{
 					return item.value == _by;
 				});
 
-				return (channel.length>0) ? channel[0].name : '';
+				return (channel == undefined) ? channel.name : '';
 			};
 
 			$scope.greaterThanZero = function(item){
@@ -81,11 +62,11 @@
 					if(item.num > 0){
 						items.push({
 							"key": item.key,
-							"num": item.num
+							"num": item.num,
+							"name": item.name
 						});
 					}
 				});
-
 
 				var cart = {
 					'items': items,
@@ -93,7 +74,7 @@
 					'total': $scope.CalTotal()
 				};
 
-				$http.post('/api/orders/new',cart)
+				$http.post('/api/orders',cart)
 				.success(function(){
 					CartFactory.reset();
 					alert('訂單已送出！謝謝尼～');

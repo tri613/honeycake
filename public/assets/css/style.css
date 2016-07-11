@@ -27,6 +27,14 @@ section {
   color: #E3AD40;
   font-weight: bold; }
 
+.card {
+  /*min-width: 330px;*/ }
+
+select {
+  padding: 5px 10px;
+  border: 1px solid #eee;
+  border-radius: 3px; }
+
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   header {
