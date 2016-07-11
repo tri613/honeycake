@@ -1,10 +1,10 @@
 {
   "name": "honeycake",
   "version": "1.0.0",
-  "description": "之前為老妹寫的簡單訂購系統，現在想用angular試著重新寫一遍。",
+  "description": "之前為老妹寫的簡單訂購系統，現在想用angular + node試著重新寫一遍。",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/tri613/honeycake/issues"
   },
-  "homepage": "https://github.com/tri613/honeycake#readme"
+  "homepage": "https://github.com/tri613/honeycake#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2"
+  }
 }

@@ -2,7 +2,7 @@
 
 (function(){
 
-	angular.module('HoneyCake',['ngRoute'])
+	angular.module('HoneyCake',['ngRoute','HoneyProducts'])
 
 		.config(function($routeProvider){
 			$routeProvider
@@ -76,96 +76,35 @@
 			};
 
 			$scope.sendCart = function(){
+				var items = [];
+				$scope.items.forEach(item =>{
+					if(item.num > 0){
+						items.push({
+							"key": item.key,
+							"num": item.num
+						});
+					}
+				});
+
+
 				var cart = {
-					'items': $scope.items,
+					'items': items,
 					'buyer': $scope.user,
 					'total': $scope.CalTotal()
 				};
+
+				$http.post('/api/orders/new',cart)
+				.success(function(){
+					CartFactory.reset();
+					alert('訂單已送出！謝謝尼～');
+					$location.url('/');
+				})
+				.error(function(){
+					alert('伺服器忙碌中，請稍候再次嘗試，謝謝。');
+				});
 			};
 
 		}])
-
-		.factory('CartFactory', function(){
-			var cartFac = {};
-			var itemMenu = [
-				{
-					_id:0,
-					key: 't500',
-					name: '餐券 / 買500送100',
-					category:'ticket',
-					price: 500,
-					num:0
-				},
-				{
-					_id:1,
-					key: 't1000',
-					name: '餐券 / 買1000送200',
-					category:'ticket',
-					price: 1000,
-					num:0
-				},
-				{
-					_id:2,
-					key: 'honeycake',
-					name: '蜂蜜蛋糕',
-					category:'cake',
-					price: 180,
-					num:0
-				}
-			];
-
-			cartFac.channels = [
-				{
-					name:'由工作人員交付',
-					value: 'staff',
-					shipment: 0
-				},
-				{
-					name:'義賣活動當天領取',
-					value: 'event',
-					shipment: 0
-				},
-				{
-					name:'郵寄',
-					value: 'shipping',
-					shipment: {
-						cake: 150,
-						ticket: 25
-					}
-				}
-			];
-
-			// cartFac.user = {};
-			// cartFac.items = angular.copy(itemMenu);
-			// cartFac.total = 0;
-			cartFac.getItem = function(_id){
-				return this.items[_id];
-			};
-			cartFac.setUser = function(info){
-				this.user = info;
-			};
-			cartFac.getItemTotal = function(){
-				var sum = 0;
-
-				this.items.forEach(item => {
-					var num = (item.num == undefined) ? 0 : parseFloat(item.num);
-					sum += item.price * num;
-				});
-
-				this.total = sum;
-				return sum;
-			};
-
-			cartFac.reset = function(){
-				this.items = angular.copy(itemMenu);
-				this.user = {};
-				this.total = 0;
-			};
-
-			cartFac.reset();
-
-			return cartFac;
-		})
 
 		.directive("dynamicName",function($compile){
 		    return {
@@ -178,13 +117,6 @@
 		            $compile(element)(scope);
 		        }
 		    };
-		})
-
-		.directive('navBar',function(){
-			return {
-				restrict:"E",
-				templateUrl: 'nav.html'
-			};
 		})
 
 	;

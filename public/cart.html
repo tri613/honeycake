@@ -66,7 +66,12 @@
 					<div class="form-control-label"><label>收件地址</label></div>
 					<input type="text" name="shipaddress" class="form-control" ng-model="user.ship.address" ng-required="user.by == 'shipping'">
 				</fieldset>
+
 			</div>
+			<fieldset class="form-group">
+				<div class="form-control-label"><label>想說什麼？</label></div>
+				<textarea type="text" name="msg" class="form-control" ng-model="user.msg"></textarea>
+			</fieldset>
 		</ng-form>
 	</section>
 
