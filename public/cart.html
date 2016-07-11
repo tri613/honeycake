@@ -3,21 +3,18 @@
 <form 
 	name="cartForm" novalidate ng-controller="FormController" 
 	ng-submit="cartForm.$valid && checkTotal() && submitForm()">
-
 	<section>
 		<h4>Step 1 / 選擇商品</h4>
-		<ng-form name="itemForm" class="form">
-			<ng-form name="urlForm"  ng-repeat="(index,item) in items" >
-				<div class="form-group" 
-					ng-class="{
-					 	'has-danger':urlForm.key.$invalid,
-					 	'_has-success':urlForm.key.$valid && urlForm.key.$touched,
-					}"
-				>
-					<label class="form-control-label">{{item.name}} / {{item.price | currency:'TW'}}</label>
-					<input type="number" name="key" class="form-control" ng-model="item.num">
-				</div>
-			</ng-form>
+		<ng-form name="itemForm"  ng-repeat="(index,item) in items" >
+			<div class="form-group" 
+				ng-class="{
+				 	'has-danger':itemForm.key.$invalid,
+				 	'_has-success':itemForm.key.$valid && itemForm.key.$touched,
+				}"
+			>
+				<label class="form-control-label">{{item.name}} / {{item.price | currency:'TW'}}</label>
+				<input type="number" name="key" class="form-control" ng-model="item.num">
+			</div>
 		</ng-form>
 	</section>
 
