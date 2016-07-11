@@ -1,5 +1,5 @@
 (function(){
-	angular.module('HoneyProducts',[])
+	angular.module('HoneyServices',[])
 		.factory('CartFactory', function(){
 			var cartFac = {};
 			var itemMenu = [
@@ -79,4 +79,5 @@
 			return cartFac;
 		})
 	;
+	
 }());

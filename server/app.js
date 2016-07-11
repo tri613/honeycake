@@ -2,28 +2,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
-var fs = require('fs');
-
-var filePath = path.join( __dirname, 'orders.json');
-var getOrders = function(){
-	var content = fs.readFileSync(filePath,'utf8');
-	var orders = JSON.parse(content);
-
-	return orders;
-};
-var getOrder = function(_id){
-	var orders = getOrders();
-	// var searched = orders.filter(order => {
-	// 	return order.id == _id;
-	// });
-
-	// if(searched.length <= 0){
-	// 	result = false;
-	// }else{
-	// 	result = searched[0];
-	// }
-	return  (orders[_id] === undefined) ? false : orders[_id];
-}
+var orderHandler = require('./order_handler');
 
 //logging
 app.use(function(req, res, next){
@@ -47,52 +26,52 @@ app.get('/', function(req, res){
 //api
 app.route('/api/orders/:orderId?')
 	.get(function(req,res){ //get order(s) detail
-		var orders = getOrders();
-		var result = (req.params.orderId === undefined) ? getOrders() : getOrder(req.params.orderId);
-		if(!result){
-			res.status(404).send('No matching record found.');
-		}else{
-			res.json(result);
-		}
+		// var orders = getOrders();
+		// var result = (req.params.orderId === undefined) ? getOrders() : getOrder(req.params.orderId);
+		// if(!result){
+		// 	res.status(404).send('No matching record found.');
+		// }else{
+		// 	res.json(result);
+		// }
 	})
 	.post(function(req,res){ //create new order
-		var orders = getOrders();
-		var new_order = req.body;
+		// var orders = getOrders();
+		// var new_order = req.body;
 
-		if(new_order == undefined || new_order.total == undefined){
-			res.status(400).send('Invalid input.');
-			return false;
-		}
+		// if(new_order == undefined || new_order.total == undefined){
+		// 	res.status(400).send('Invalid input.');
+		// 	return false;
+		// }
 
-		new_order.createTime = new Date().getTime();
-		new_order.updateTime = new Date().getTime();
-		new_order.id = orders.length; //use index as order id?
-		new_order.status = 'UNPAID'; 
+		// new_order.createTime = new Date().getTime();
+		// new_order.updateTime = new Date().getTime();
+		// new_order.id = orders.length; //use index as order id?
+		// new_order.status = 'UNPAID'; 
 
 
-		//push new order into it
-		orders.push(new_order);
+		// //push new order into it
+		// orders.push(new_order);
 
-		//write the whole new content into order file
-		var contents = JSON.stringify(orders);
-		fs.writeFileSync(filePath,contents);
-		res.sendStatus(201);
+		// //write the whole new content into order file
+		// var contents = JSON.stringify(orders);
+		// fs.writeFileSync(filePath,contents);
+		// res.sendStatus(201);
 	})
 	.put(function(req,res){ //update order status
-		var orders = getOrders();
-		var id = req.params.orderId;
+		// var orders = getOrders();
+		// var id = req.params.orderId;
 		
-		if(orders[id] === undefined){
-			res.status(404).send('No matching record found.');
-		}else if(req.body.status === undefined){
-			res.status(400).send('Invalid input.');
-		}else{
-			orders[id].status = req.body.status;
-			orders[id].updateTime = new Date().getTime();
-			var contents = JSON.stringify(orders);
-			fs.writeFileSync(filePath,contents);
-			res.sendStatus(200);
-		}
+		// if(orders[id] === undefined){
+		// 	res.status(404).send('No matching record found.');
+		// }else if(req.body.status === undefined){
+		// 	res.status(400).send('Invalid input.');
+		// }else{
+		// 	orders[id].status = req.body.status;
+		// 	orders[id].updateTime = new Date().getTime();
+		// 	var contents = JSON.stringify(orders);
+		// 	fs.writeFileSync(filePath,contents);
+		// 	res.sendStatus(200);
+		// }
 
 	}) 
 ;

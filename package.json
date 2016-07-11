@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/tri613/honeycake#readme",
   "dependencies": {
-    "body-parser": "^1.15.2"
+    "cookie-parser": "~1.3.5",
+    "body-parser": "^1.15.2",
+    "express": "~4.13.1",
   }
 }
