@@ -7,9 +7,9 @@
 之後有閒情逸致再來研究看看node的寄信功能好惹。
 
 ###一些資訊
--server: node.js
+- server: node.js
 
--client: angularJs
+- client: angularJs
 
 
 訂購頁面: /
