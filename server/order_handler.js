@@ -15,11 +15,9 @@ handler.getOrders = function(){
 	return _orders;
 };
 handler.getOrder = function(_id){
-	_order = orders.find(order => {
+	_order = _orders.find(order => {
 		return order.id == _id;
 	});
-
-	// _order = (_orders[_id] === undefined) ? false : _orders[_id];
 	return _order;
 };
 
@@ -82,7 +80,7 @@ handler.updateOrder = function(_id,_status){
 
 		return {
 			'code': 200,
-			'msgs': 'Success'
+			'msg': 'Success'
 		};
 
 	}catch(e){

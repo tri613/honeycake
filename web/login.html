@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Honey cake admin</title>
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body ng-app="TriAdmin">
+<div class="login_wrapper">
+	<div class="container login_box">
+			<form name="loginForm" accept-charset="utf-8" novalidate ng-controller="LoginController" ng-submit="loginForm.$valid && doLogin()">
+				<div class="form-group" ng-class="{
+				 	'has-danger':loginForm.account.$invalid && (loginForm.account.$touched || loginForm.$submitted) ,
+				 	'has-success':loginForm.account.$valid
+				}">
+					<label class="form-control-label">Account</label>
+					<input type="text" name="account" class="form-control" ng-model="account" required>
+				</div>
+				<div class="form-group" ng-class="{
+				 	'has-danger':loginForm.secret.$invalid && (loginForm.secret.$touched || loginForm.$submitted),
+				 	'has-success':loginForm.secret.$valid
+				}">
+					<label class="form-control-label">Password</label>
+					<input type="password" name="secret" class="form-control" ng-model="secret" required>
+				</div>
+				<button type="submit" class="btn btn-warning">Login</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript" src="/assets/js/angular.min.js"></script>	
+<script type="text/javascript" src="/assets/js/angular-route.min.js"></script>	
+<script type="text/javascript" src="/assets/js/services.js"></script>	
+<script type="text/javascript" src="/assets/js/admin/triadmin.js"></script>	
+</body>
+</html>

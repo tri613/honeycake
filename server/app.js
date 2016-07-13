@@ -2,7 +2,9 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
-var orderHandler = require('./order_handler');
+var session = require('express-session');
+
+var api = require('./api.js');
 
 //logging
 app.use(function(req, res, next){
@@ -16,50 +18,38 @@ app.use(express.static( path.join( __dirname, '../public') ));
 //setting for bodyParser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+//session
+app.use(session({
+	secret  : 'Triiiiiii',
+    key     : 'trihc',
+    resave: true,
+    saveUninitialized: true
+}));
 
 //index page
 app.get('/', function(req, res){
-  res.sendFile( path.join( __dirname, '../web/index.html' ) );
+	res.sendFile( path.join( __dirname, '../web/index.html' ) );
+});
+
+//admin
+app.get('/admin/login',function(req,res){
+	if(req.session.access){
+		res.redirect('/admin');
+		return false;
+	}
+	res.sendFile( path.join( __dirname, '../web/login.html' ) );
 });
 
 app.get('/admin',function(req,res){
-  res.sendFile( path.join( __dirname, '../web/admin.html' ) );
+	if(!req.session.access){
+		res.redirect('/admin/login');
+		return false;
+	}
+	res.sendFile( path.join( __dirname, '../web/admin.html' ) );
 });
 
 //api
-app.route('/api/orders')
-	.get(function(req,res){
-		var result = orderHandler.getOrders();
-		res.json(result);
-	})
-	.post(function(req,res){
-		var e = orderHandler.createOrder(req.body);
-		if(e === false){
-			res.sendStatus(500);
-		}else{
-			res.status(e.code).send(e.msg);
-		}
-	})
-;
-app.route('/api/orders/:orderId')
-	.get(function(req,res){ //get order(s) detail
-		var result = orderHandler.getOrder(req.params.orderId);
-		if(!result){
-			res.status(404).send('No matching record found.');
-		}else{
-			res.json(result);
-		}
-	})
-	.put(function(req,res){ //update order status
-		var result = orderHandler.updateOrder(req.params.orderId,req.body.status);
-		if(result === false){
-			res.sendStatus(500);
-		}else{
-			var s = orderHandler.getOrder(req.params.orderId);
-			res.status(result.code).send(s);
-		}
-	}) 
-;
+app.use('/api',api);
 
 
 app.listen(3000, function () {
