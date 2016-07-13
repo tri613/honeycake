@@ -26,5 +26,5 @@
 
 嘛，step by step摟。(什麼結論)
 
-另外不得不說寫了node才發現PHP真的內建了很多東西XDDDDD)
+另外不得不說寫了node才發現PHP真的內建了很多東西XDDDDD
 
