@@ -14,7 +14,7 @@
 <h2>查看訂單</h2>
 <p>Total: {{total | currency:'TW'}}</p>
 
-<div class="card-columns">
+<div class="grid" data-masonry='{ "itemSelector": ".card", "columnWidth": 350 }'>
 	<div class="card card-inverse" ng-repeat="order in orders" ng-class="{
 		'card-danger':order.status=='UNPAID',
 		'card-warning':order.status=='PAID',
@@ -89,8 +89,9 @@
 
 </div>
 
+<script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>	
 <script type="text/javascript" src="/assets/js/angular.min.js"></script>	
-<script type="text/javascript" src="/assets/js/angular-route.min.js"></script>	
+<script type="text/javascript" src="/assets/js/angular-masonry-directive.js"></script>	
 <script type="text/javascript" src="/assets/js/services.js"></script>	
 <script type="text/javascript" src="/assets/js/admin/triadmin.js"></script>	
 </body>

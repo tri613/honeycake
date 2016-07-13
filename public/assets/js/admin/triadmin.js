@@ -1,6 +1,6 @@
 (function(){
 
-	angular.module('TriAdmin',['HoneyServices'])
+	angular.module('TriAdmin',['HoneyServices','masonry'])
 		.controller('OrderController', ['$scope', '$http', 'CartFactory',function($scope, $http, CartFactory){
 			$scope.orders = [];
 			$scope.total = 0;

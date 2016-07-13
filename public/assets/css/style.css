@@ -28,7 +28,8 @@ section {
   font-weight: bold; }
 
 .card {
-  /*min-width: 330px;*/ }
+  width: 330px; 
+}
 
 select {
   padding: 5px 10px;
