@@ -14,7 +14,6 @@
 				});
 				return (result == undefined) ? result.name : _key;
 			};
-
 			$scope.updateOrder = function(_id,_status){
 				ApiHandler.orders.update({orderId:_id,status:_status},function(data){
 					$scope.orders.find((i)=>{return i.id == _id;}).updateTime = data.updateTime;
@@ -27,5 +26,3 @@
 	;
 
 }());
-
-//第三責任險
