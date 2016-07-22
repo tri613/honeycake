@@ -1,5 +1,5 @@
 (function(){
-	angular.module('HoneyServices',[])
+	angular.module('HoneyServices',['ngResource'])
 		.factory('CartFactory', function(){
 			var cartFac = {};
 			var itemMenu = [
@@ -78,6 +78,9 @@
 
 			return cartFac;
 		})
+		.service('ApiHandler', ['$resource', function($resource){
+			this.orders = $resource('/api/orders/:orderId',{orderId:'@orderId'},{update:{method:'PUT'}});
+		}])
 	;
 	
 }());

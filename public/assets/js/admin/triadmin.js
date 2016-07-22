@@ -20,9 +20,6 @@
 				});
 			};
 		}])
-		.service('ApiHandler', ['$resource', function($resource){
-			this.orders = $resource('/api/orders/:orderId',{orderId:'@orderId'},{update:{method:'PUT'}});
-		}])
 	;
 
 }());
