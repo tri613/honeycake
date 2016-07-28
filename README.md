@@ -16,7 +16,7 @@
 
 檢視訂單: /admin (account:tri / pw:chu)
 
-啟動方式: npm start
+啟動方式: `npm start`
 
 
 ###一點後記
